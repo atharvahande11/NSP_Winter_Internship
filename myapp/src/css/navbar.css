@@ -1,0 +1,42 @@
+*{
+    margin:0;
+    padding:0;
+}
+
+.mainnavbar{
+    display:flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.leftnav img{
+    width: 300px;
+    height: 130px;
+    padding-left: 10px;
+}
+
+.faq-link{
+    margin-right: 20px;
+    text-decoration: none;
+    color: black;
+    font-weight:bold;
+}
+
+.lefttopnav p{
+    display: inline;
+    font-size: 0.8em
+}
+
+.topnav{
+    background-color: rgb(237 237 237);
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.righttopnav p{
+    font-size: 0.8em;
+}

@@ -1,0 +1,42 @@
+.home1 {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;    
+    margin-top: 50px;
+    padding: 30px 90px;
+}
+
+.card1, .card2, .card3 {
+    background-color: pink;
+    color: white;
+    padding: 20px; /* Reduced padding for better size control */
+    width:  200px; /* Fixed width */
+    height: 150px; /* Fixed height */
+    display: flex; /* Center the text */
+    justify-content: center; 
+    align-items: center;
+    text-align: center; /* Align multiline text properly */
+    border-radius: 8px; /* Optional: for rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: for better visual appearance */
+    font-weight: bold;
+    font-size: 1em;
+}
+
+/* Individual colors for each card */
+.card1 {
+    background-color: #F7768D;
+}
+
+.card2 {
+    background-color: #D870C7;
+}
+
+.card3 {
+    background-color: #36AAC9;
+}
+
+.card-link{
+    color: white;
+    text-decoration: none;
+}

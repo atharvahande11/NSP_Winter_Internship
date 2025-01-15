@@ -1,9 +1,22 @@
 import React from 'react'
+import logo from '.././assets/nsp-logo.svg'
+import {Link} from 'react-router-dom'
+import '.././css/navbar.css'
+import Mainslider from './Mainslider.jsx'
 
 const Navbar = () => {
   return (
-    <div>
-      <h1>Hello world</h1>
+    <div className="mainnavbar">
+        <div className="leftnav">
+            <img src={logo} alt="Logo" />
+        </div>
+        <div className="rightnav">
+            <ul>
+                <Link to="/home" className="faq-link">FAQ</Link>
+                <Link to="/home" className="faq-link">Announcements</Link>
+                <Link to="/home" className="faq-link">Helpdesk</Link>  
+            </ul>            
+        </div>
     </div>
   );
 }
