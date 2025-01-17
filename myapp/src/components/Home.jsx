@@ -7,17 +7,17 @@ const Home = (props) => {
   return (
     <>
       <Mainslider />
-      <div className="home1">
-        <div className="card1">
-          <Link to="/students" className="card-link">
+      <div className="hhome1">
+        <div className="hcard1">
+          <Link to="/student-login" className="hcardLink">
             Students
           </Link>
         </div>
-        <div className="card2">
-          <Link to="/Institutions" className="card-link">Institutions</Link>
+        <div className="hcard2">
+          <Link to="/institute-login" className="hcardLink">Institutions</Link>
         </div>
-        <div className="card3">
-          <Link to="/privateorg" className="card-link">Private Organisation</Link>
+        <div className="hcard3">
+          <Link to="/privateorg" className="hcardLink">Private Organisation</Link>
         </div>
       </div>
     </>
