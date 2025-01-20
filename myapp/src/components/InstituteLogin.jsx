@@ -61,7 +61,7 @@ const InstituteLogin = () => {
         </button>
         </form>
         <div className="mt-4 text-center text-gray-600">
-            <Link to="/institute-signup" className="text-blue-500">
+            <Link to="/institute-register1" className="text-blue-500">
             Sign up
             </Link>
         </div>

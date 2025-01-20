@@ -87,7 +87,7 @@ const InstituteSignup = () => {
         </form>
         <div className="mt-4 text-center text-gray-600">
           Already have an account?{" "}
-          <Link to="/student-login" className="text-blue-500">
+          <Link to="/institute-login" className="text-blue-500">
             Login
           </Link>
         </div>
