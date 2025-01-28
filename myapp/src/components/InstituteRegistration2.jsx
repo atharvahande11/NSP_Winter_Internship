@@ -90,7 +90,7 @@ const InstituteRegistration2 = () => {
       <div className="container card-form shadow mt-4 p-4" style={{ fontFamily: 'Cambria, serif' }}>
         <div className="card-body bg-white">
           <p className="text-center themeFontcolor" style={{ fontSize: "20px", backgroundColor: "#115a87", color: "#fff", padding: "20px" }}>
-            <strong>Institute Application Form</strong>
+            <strong>Institute Appli cation Form</strong>
           </p>
           <hr />
           <div className="card-form shadow p-4 mt-4">
