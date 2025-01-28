@@ -17,7 +17,7 @@ const Home = (props) => {
           <Link to="/institute-login" className="hcardLink">Institutions</Link>
         </div>
         <div className="hcard3">
-          <Link to="/privateorg" className="hcardLink">Private Organisation</Link>
+          <Link to="/pvt-login" className="hcardLink">Private Organisation</Link>
         </div>
       </div>
     </>
