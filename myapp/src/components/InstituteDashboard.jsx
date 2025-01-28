@@ -2,7 +2,6 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom'
 
-
 const ScholarshipCard = ({ 
   title, 
   description, 
@@ -16,14 +15,14 @@ const ScholarshipCard = ({
   return (
     <div className="bg-white rounded-lg shadow-md p-6 mb-4">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-xl font-semibold text-blue-600">{title}</h3>
+        <h3 className="text-xl font-semibold text-[#E94FBB]">{title}</h3>
       </div>
       
       <p className="text-gray-600 mb-4">{description}</p>
       
       <div className="flex items-center justify-between">
           <button 
-            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg"
+            className="bg-[#D16EB5] hover:bg-[#B95DA0] text-white px-4 py-2 rounded-lg"
           >
             Register
           </button>
@@ -31,7 +30,6 @@ const ScholarshipCard = ({
       </div>
   );
 };
-
 
 const InstituteDashboard = () => {
   const [activeTab, setActiveTab] = useState('scholarships');
@@ -61,16 +59,8 @@ const InstituteDashboard = () => {
     }
   ];
 
-//   const handleShare = (id) => {
-//     console.log(Sharing scholarship ${id});
-//   };
-
-//   const handleComment = (id) => {
-//     console.log(Commenting on scholarship ${id});
-//   };
-
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex min-h-screen bg-[#E94FBB]/10">
       {/* Sidebar */}
       <div className="w-64 bg-white shadow-md">
         <div className="p-4">
@@ -80,8 +70,8 @@ const InstituteDashboard = () => {
               onClick={() => setActiveTab('profile')}
               className={`p-3 rounded-lg text-left ${
                 activeTab === 'profile'
-                  ? 'bg-blue-500 text-white'
-                  : 'text-gray-600 hover:bg-blue-50'
+                  ? 'bg-[#D16EB5] text-white'
+                  : 'text-gray-600 hover:bg-[#F3C1E4]'
               }`}
             >
               Update Profile
@@ -90,8 +80,8 @@ const InstituteDashboard = () => {
               onClick={() => setActiveTab('scholarships')}
               className={`p-3 rounded-lg text-left ${
                 activeTab === 'scholarships'
-                  ? 'bg-blue-500 text-white'
-                  : 'text-gray-600 hover:bg-blue-50'
+                  ? 'bg-[#D16EB5] text-white'
+                  : 'text-gray-600 hover:bg-[#F3C1E4]'
               }`}
             >
               Apply for Scholarships
@@ -100,8 +90,8 @@ const InstituteDashboard = () => {
               onClick={() => setActiveTab('my-scholarships')}
               className={`p-3 rounded-lg text-left ${
                 activeTab === 'my-scholarships'
-                  ? 'bg-blue-500 text-white'
-                  : 'text-gray-600 hover:bg-blue-50'
+                  ? 'bg-[#D16EB5] text-white'
+                  : 'text-gray-600 hover:bg-[#F3C1E4]'
               }`}
             >
               My Scholarships
@@ -110,8 +100,8 @@ const InstituteDashboard = () => {
               onClick={handleLogout}
               className={`p-3 rounded-lg text-left ${
                 activeTab === 'logout'
-                  ? 'bg-blue-500 text-white'
-                  : 'text-gray-600 hover:bg-blue-50'
+                  ? 'bg-[#D16EB5] text-white'
+                  : 'text-gray-600 hover:bg-[#F3C1E4]'
               }`}
             >
               Log Out
@@ -137,8 +127,6 @@ const InstituteDashboard = () => {
                 <ScholarshipCard
                   key={scholarship.id}
                   {...scholarship}
-                  onShare={() => handleShare(scholarship.id)}
-                  onComment={() => handleComment(scholarship.id)}
                 />
               ))}
             </div>

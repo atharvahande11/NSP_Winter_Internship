@@ -17,6 +17,7 @@ import InstituteDashboard from './components/InstituteDashboard.jsx'
 import StudentDetails from './components/StudentDetails.jsx'
 import InstituteRegistration1 from './components/InstituteRegistration1.jsx'
 import InstituteRegistration2 from './components/InstituteRegistration2.jsx'
+import PrivateScholarshipDashboard from './components/PvtScholarshipDashboard.jsx'
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
           <Route path="/institute-dashboard" element={<InstituteDashboard />} />
           <Route path="/institute-register1" element={<InstituteRegistration1 />} />
           <Route path="/institute-register2" element={<InstituteRegistration2 />} />
+          <Route path="/pvtorg-dashboard" element={<PrivateScholarshipDashboard />} />
         </Routes>
     <Footer />
     </>
