@@ -1,45 +1,89 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-// import axios from "axios";
-// import Header from "../components/Header/Header";
+import React, { useState } from 'react';
 
-function RedStar() {
-  return <span style={{ color: 'red' }}>*</span>;
-}
+const RedStar = () => (
+  <span className="text-red-500 ml-1">*</span>
+);
 
-const InstituteRegistration2 = () => {
-  const navigate = useNavigate();
+const Modal = ({ children, onClose }) => (
+  <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+    <div className="bg-white p-6 rounded-lg shadow-xl max-w-md w-full mx-4">
+      {children}
+    </div>
+  </div>
+);
+
+const FormField = ({ label, value, onChange, type = "text", as = "input", options = [] }) => {
+  const inputClasses = "w-full px-4 py-2 border-2 border-pink-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent";
+  
+  return (
+    <div className="mb-4">
+      <label className="block text-gray-700 font-medium mb-2">
+        {label} <RedStar />
+      </label>
+      {as === "select" ? (
+        <select
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className={inputClasses}
+          required
+        >
+          <option value="" disabled>Select {label}</option>
+          {options.map(({ value, label }) => (
+            <option key={value} value={value}>
+              {value} - {label}
+            </option>
+          ))}
+        </select>
+      ) : (
+        <input
+          type={type}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder={`Enter ${label}`}
+          className={inputClasses}
+          required
+        />
+      )}
+    </div>
+  );
+};
+
+const InstituteRegistration2 = ({ onRegistrationComplete }) => {
+  const [formData, setFormData] = useState({
+    heid: '',
+    pan: '',
+    tan: '',
+    email: '',
+    collegeName: '',
+    address: '',
+    city: '',
+    mobNum: '',
+    state: ''
+  });
+
+  const [error, setError] = useState('');
   const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const [applicationId, setApplicationId] = useState('');
-  const [error, setError] = useState('');
 
-  // Define state for form inputs
-  const [heid, setHeid] = useState('');
-  const [pan, setPan] = useState('');
-  const [tan, setTan] = useState('');
-  const [email, setEmail] = useState('');
-  const [collegeName, setCollegeName] = useState('');
-  const [address, setAddress] = useState('');
-  const [city, setCity] = useState('');
-  const [mobNum, setMobNum] = useState('');
-  const [state, setState] = useState('');
+  const handleChange = (field) => (value) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const generateApplicationId = () => {
+    const stateInitials = formData.state.slice(0, 2).toUpperCase();
+    const heiInitials = formData.heid.slice(0, 2).toUpperCase();
+    const randomNumbers = Math.floor(100000 + Math.random() * 900000);
+    return `EI_${stateInitials}_${heiInitials}${randomNumbers}`;
+  };
 
   const handleRegisterClick = () => {
-    if (!heid || !pan || !tan || !email || !collegeName || !address || !city || !mobNum || !state) {
+    if (Object.values(formData).some(value => !value)) {
       setError('Please fill all the input fields.');
       return;
     }
     setError('');
     setShowConfirmationPopup(true);
-  };
-
-  const generateApplicationId = () => {
-    const stateInitials = state.slice(0, 2).toUpperCase(); // Get first two letters of state
-    const heiInitials = heid.slice(0, 2).toUpperCase(); // Get first two letters of HEI_id
-    const randomNumbers = Math.floor(100000 + Math.random() * 900000); // Generate random 6-digit number
-    const randomId = `EI_${stateInitials}_${heiInitials}${randomNumbers}`; // Concatenate 'EI_', state initials, HEI initials, and random number
-    return randomId;
   };
 
   const handleConfirmRegistration = async () => {
@@ -48,29 +92,26 @@ const InstituteRegistration2 = () => {
       const newApplicationId = generateApplicationId();
       setApplicationId(newApplicationId);
 
-      const formData = {
-        heid,
-        pan,
-        tan,
-        email,
-        collegeName,
-        address,
-        city,
-        state,
-        mobNum,
-        appId: newApplicationId,
-      };
+      const response = await fetch('http://localhost:4000/institute/register-institute', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          appId: newApplicationId
+        }),
+      });
 
-      // Uncomment and use actual API call
-      const response = await axios.post(`http://localhost:4000/institute/register-institute`, formData);
+      const data = await response.json();
 
-      // const response = { data: { success: true } }; // Simulated response for success
-
-      if (response.data.success) {
+      if (data.success) {
         setShowSuccessPopup(true);
         setTimeout(() => {
-          setShowSuccessPopup(false); // Close success popup after 10 seconds
-          navigate("/institute-login");
+          setShowSuccessPopup(false);
+          if (onRegistrationComplete) {
+            onRegistrationComplete();
+          }
         }, 10000);
       } else {
         setError("Institute registration failed!");
@@ -81,147 +122,155 @@ const InstituteRegistration2 = () => {
     }
   };
 
-  const handleCancel = () => {
-    setShowConfirmationPopup(false);
-  };
+  const STATES = [
+    { value: "MH", label: "Maharashtra" },
+    { value: "UK", label: "Uttarakhand" },
+    { value: "AP", label: "Andhra Pradesh" },
+    { value: "AR", label: "Arunachal Pradesh" },
+    { value: "AS", label: "Assam" },
+    { value: "BR", label: "Bihar" },
+    { value: "CG", label: "Chhattisgarh" },
+    { value: "CH", label: "Chandigarh" },
+    { value: "DL", label: "Delhi" },
+    { value: "GA", label: "Goa" },
+    { value: "GJ", label: "Gujarat" },
+    { value: "HP", label: "Himachal Pradesh" },
+    { value: "HR", label: "Haryana" },
+    { value: "JH", label: "Jharkhand" },
+    { value: "KA", label: "Karnataka" },
+    { value: "KL", label: "Kerala" },
+    { value: "ML", label: "Meghalaya" },
+    { value: "MN", label: "Manipur" },
+    { value: "MP", label: "Madhya Pradesh" },
+    { value: "MZ", label: "Mizoram" },
+    { value: "NL", label: "Nagaland" },
+    { value: "OD", label: "Odisha" },
+    { value: "PB", label: "Punjab" },
+    { value: "PY", label: "Pondicherry" },
+    { value: "RJ", label: "Rajasthan" },
+    { value: "SK", label: "Sikkim" },
+    { value: "TN", label: "Tamil Nadu" },
+    { value: "TR", label: "Tripura" },
+    { value: "TS", label: "Telangana" },
+    { value: "UP", label: "Uttar Pradesh" },
+    { value: "WB", label: "West Bengal" }
+  ];
 
   return (
-    <>
-      <div className="container card-form shadow mt-4 p-4" style={{ fontFamily: 'Cambria, serif' }}>
-        <div className="card-body bg-white">
-          <p className="text-center themeFontcolor" style={{ fontSize: "20px", backgroundColor: "#115a87", color: "#fff", padding: "20px" }}>
-            <strong>Institute Appli cation Form</strong>
-          </p>
-          <hr />
-          <div className="card-form shadow p-4 mt-4">
-            <div className="row">
-              {error && <div className="alert alert-danger" role="alert">{error}</div>}
-              {/* Form fields */}
-              {[
-                { label: "Enter HEI_id", value: heid, onChange: setHeid },
-                { label: "PAN number", value: pan, onChange: setPan },
-                { label: "TAN number", value: tan, onChange: setTan },
-                { label: "Mobile Number", value: mobNum, onChange: setMobNum, type: "tel" },
-                { label: "Official E-mail", value: email, onChange: setEmail },
-                { label: "College Name", value: collegeName, onChange: setCollegeName },
-                { label: "Address", value: address, onChange: setAddress },
-                { label: "City", value: city, onChange: setCity }
-              ].map((field, index) => (
-                <div key={index} className="col-sm-5 mb-3">
-                  <label style={{ display: "block" }}>{field.label} <RedStar /></label>
-                  <input
-                    type={field.type || "text"}
-                    placeholder={`Enter ${field.label}`}
-                    required
-                    name={field.label.toLowerCase().replace(/ /g, "")}
-                    value={field.value}
-                    onChange={(e) => field.onChange(e.target.value)}
-                  />
-                </div>
-              ))}
-              <div className="col-sm-5 mb-3">
-                <label style={{ display: "block" }}>State <RedStar /></label>
-                <select
-                  required
-                  name="state"
-                  value={state}
-                  onChange={(e) => setState(e.target.value)}
-                  style={{ display: "block", width: "100%" }}
-                >
-                  <option value="" disabled>Select State</option>
-                  {/* Corrected state abbreviations */}
-                  <option value="MH">MH - Maharashtra</option>
-                  <option value="UK">UK - Uttarakhand</option>
-                  <option value="AP">AP - Andhra Pradesh</option>
-                  <option value="AR">AR - Arunachal Pradesh</option>
-                  <option value="AS">AS - Assam</option>
-                  <option value="BR">BR - Bihar</option>
-                  <option value="CG">CG - Chhattisgarh</option>
-                  <option value="CH">CH - Chandigarh</option>
-                  <option value="DL">DL - Delhi</option>
-                  <option value="GA">GA - Goa</option>
-                  <option value="GJ">GJ - Gujarat</option>
-                  <option value="HP">HP - Himachal Pradesh</option>
-                  <option value="HR">HR - Haryana</option>
-                  <option value="JH">JH - Jharkhand</option>
-                  <option value="KA">KA - Karnataka</option>
-                  <option value="KL">KL - Kerala</option>
-                  <option value="ML">ML - Meghalaya</option>
-                  <option value="MN">MN - Manipur</option>
-                  <option value="MP">MP - Madhya Pradesh</option>
-                  <option value="MZ">MZ - Mizoram</option>
-                  <option value="NL">NL - Nagaland</option>
-                  <option value="OD">OD - Odisha</option>
-                  <option value="PB">PB - Punjab</option>
-                  <option value="PY">PY - Pondicherry</option>
-                  <option value="RJ">RJ - Rajasthan</option>
-                  <option value="SK">SK - Sikkim</option>
-                  <option value="TN">TN - Tamil Nadu</option>
-                  <option value="TR">TR - Tripura</option>
-                  <option value="TS">TS - Telangana</option>
-                  <option value="UP">UP - Uttar Pradesh</option>
-                  <option value="WB">WB - West Bengal</option>
-                </select>
-              </div>
-              <button
-                type="button"
-                className="btn btn-md btn-primary"
-                style={{ marginTop: "20px", paddingTop: "5px", paddingRight: "10px", height: "50px", width: "90px", marginLeft: "50px", display: "block", fontWeight: "bold" }}
-                onClick={handleRegisterClick}
-              >
-                Register
-              </button>
-            </div>
+    <div className="max-w-6xl mx-auto px-4 py-8 font-cambria">
+      <header style={{ backgroundColor: '#E94FBB' }} className="text-white py-6 px-8 rounded-lg mb-8">
+        <h1 className="text-2xl font-bold text-center">
+          Institute Application Form
+        </h1>
+      </header>
+
+      <div className="bg-white shadow-xl rounded-xl p-8">
+        {error && (
+          <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+            {error}
           </div>
-          {showConfirmationPopup && (
-            <div className="popup">
-              <div className="popup-inner">
-                <h2>Confirm Application</h2>
-                <p>Are you sure you want to register the application?</p>
-                <button className="btn btn-md btn-primary" onClick={handleConfirmRegistration} style={{ marginRight: "10px" }}>Yes</button>
-                <button className="btn btn-md btn-secondary" onClick={handleCancel}>No</button>
-              </div>
-            </div>
-          )}
-          {showSuccessPopup && (
-            <div className="popup">
-              <div className="popup-inner">
-                <h2>Registration Successful</h2>
-                <p>Your Application ID: {applicationId}</p>
-                <button className="btn btn-md btn-primary" onClick={() => setShowSuccessPopup(false)}>Close</button>
-              </div>
-            </div>
-          )}
+        )}
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <FormField
+            label="Enter HEI_id"
+            value={formData.heid}
+            onChange={handleChange('heid')}
+          />
+          <FormField
+            label="PAN number"
+            value={formData.pan}
+            onChange={handleChange('pan')}
+          />
+          <FormField
+            label="TAN number"
+            value={formData.tan}
+            onChange={handleChange('tan')}
+          />
+          <FormField
+            label="Mobile Number"
+            value={formData.mobNum}
+            onChange={handleChange('mobNum')}
+            type="tel"
+          />
+          <FormField
+            label="Official E-mail"
+            value={formData.email}
+            onChange={handleChange('email')}
+            type="email"
+          />
+          <FormField
+            label="College Name"
+            value={formData.collegeName}
+            onChange={handleChange('collegeName')}
+          />
+          <FormField
+            label="Address"
+            value={formData.address}
+            onChange={handleChange('address')}
+          />
+          <FormField
+            label="City"
+            value={formData.city}
+            onChange={handleChange('city')}
+          />
+          <FormField
+            label="State"
+            value={formData.state}
+            onChange={handleChange('state')}
+            as="select"
+            options={STATES}
+          />
+        </div>
+
+        <div className="mt-8 flex justify-center">
+          <button
+            onClick={handleRegisterClick}
+            style={{ backgroundColor: '#E94FBB' }}
+            className="px-8 py-3 text-white font-bold rounded-full hover:opacity-90 transition-opacity duration-200 shadow-lg"
+          >
+            Register
+          </button>
         </div>
       </div>
-      <style jsx>{`
-        .popup {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background-color: rgba(0, 0, 0, 0.5);
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
 
-        .popup-inner {
-          background-color: #fff;
-          padding: 20px;
-          border-radius: 10px;
-          text-align: center;
-        }
+      {showConfirmationPopup && (
+        <Modal onClose={() => setShowConfirmationPopup(false)}>
+          <h2 className="text-xl font-bold mb-4">Confirm Application</h2>
+          <p className="mb-6">Are you sure you want to register the application?</p>
+          <div className="flex justify-center space-x-4">
+            <button
+              style={{ backgroundColor: '#E94FBB' }}
+              className="px-6 py-2 text-white rounded hover:opacity-90"
+              onClick={handleConfirmRegistration}
+            >
+              Yes
+            </button>
+            <button
+              className="px-6 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+              onClick={() => setShowConfirmationPopup(false)}
+            >
+              No
+            </button>
+          </div>
+        </Modal>
+      )}
 
-        .btn-secondary {
-          background-color: #6c757d;
-          border-color: #6c757d;
-        }
-      `}</style>
-    </>
+      {showSuccessPopup && (
+        <Modal onClose={() => setShowSuccessPopup(false)}>
+          <h2 className="text-xl font-bold mb-4">Registration Successful</h2>
+          <p className="mb-6">Your Application ID: {applicationId}</p>
+          <button
+            style={{ backgroundColor: '#E94FBB' }}
+            className="px-6 py-2 text-white rounded hover:opacity-90"
+            onClick={() => setShowSuccessPopup(false)}
+          >
+            Close
+          </button>
+        </Modal>
+      )}
+    </div>
   );
-  
-}
+};
 
 export default InstituteRegistration2;
