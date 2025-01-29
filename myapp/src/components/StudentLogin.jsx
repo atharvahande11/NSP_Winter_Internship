@@ -12,62 +12,61 @@ const StudentLogin = () => {
 
     setTimeout(() => {
       setLoading(false);
-
     }, 1500);
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-gray-100">
-    <div className="bg-white p-8 rounded shadow-lg w-96">
-        <h2 className="text-2xl font-bold p-4 font-protest-revolution text-center">
-            <span>Student Login</span>
-        </h2>
-        <form className="space-y-4" onSubmit={handleSubmit}>
-        <div>
-            <label htmlFor="email" className="text-gray-700 flex">
-            Email
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+      <div className="bg-white shadow-xl rounded-xl p-8 w-full max-w-md">
+        <header style={{ backgroundColor: '#F7768D' }} className="text-white py-4 px-6 rounded-lg mb-6 text-center">
+          <h2 className="text-2xl font-cambria font-bold">Student Login</h2>
+        </header>
+        
+        <form className="space-y-6" onSubmit={handleSubmit}>
+          <div className="space-y-2">
+            <label htmlFor="email" className="block font-cambria text-gray-700 text-sm font-medium">
+              Email <span className="text-red-500">*</span>
             </label>
             <input
-            type="email"
-            id="email"
-            className="w-full p-2 border-b-2 border-gray-400 focus:outline-none focus:border-blue-500"
-            placeholder="Enter your email"
-            required
+              type="email"
+              id="email"
+              className="w-full px-4 py-2 border-2 border-pink-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+              placeholder="Enter your email"
+              required
             />
-        </div>
-        <div>
-            <label htmlFor="password" className="text-gray-700 flex">
-            Password
+          </div>
+
+          <div className="space-y-2">
+            <label htmlFor="password" className="block font-cambria text-gray-700 text-sm font-medium">
+              Password <span className="text-red-500">*</span>
             </label>
             <input
-            type="password"
-            id="password"
-            className="w-full p-2 border-b-2 border-gray-400 focus:outline-none focus:border-blue-500"
-            placeholder="Enter your password"
-            required
+              type="password"
+              id="password"
+              className="w-full px-4 py-2 border-2 border-pink-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+              placeholder="Enter your password"
+              required
             />
-        </div>
-        {error && <p className="text-red-500 text-center">{error}</p>}
-        <button
+          </div>
+
+          {error && <p className="text-red-500 text-center">{error}</p>}
+
+          <button
             type="submit"
-            className={`w-full p-2 rounded-md text-white ${
-            loading
-                ? 'bg-gray-400 cursor-not-allowed'
-                : 'bg-blue-500 hover:bg-blue-600'
-            } focus:outline-none transition duration-200`}
+            style={{ backgroundColor: '#F7768D' }}
+            className={`w-full px-4 py-2 text-white text-lg font-cambria rounded-full hover:opacity-90 transition-opacity duration-200 shadow-lg ${loading ? 'cursor-not-allowed opacity-70' : ''}`}
             disabled={loading}
-        >
+          >
             {loading ? 'Logging in...' : 'Login'}
-        </button>
+          </button>
         </form>
+
         <div className="mt-4 text-center text-gray-600">
-            <Link to="/student-signup" className="text-blue-500">
-            Sign up
-            </Link>
+          <Link to="/student-signup" className="text-pink-500 hover:underline">Sign up</Link>
         </div>
+      </div>
     </div>
-    </div>
-);
+  );
 };
 
 export default StudentLogin;

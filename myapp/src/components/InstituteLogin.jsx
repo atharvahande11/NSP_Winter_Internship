@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { Link } from 'react-router-dom'; // Import Link for routing
 const RedStar = () => (
   <span className="text-red-500 ml-1">*</span>
 );
@@ -113,7 +113,7 @@ const InstituteRegistration = ({ onRegistrationComplete }) => {
           />
         </div>
 
-        <div className="flex justify-center pt-6">
+        <div className="flex flex-col items-center pt-6">
           <button
             onClick={handleVerifyOtp}
             style={{ backgroundColor: '#E94FBB' }}
@@ -121,6 +121,12 @@ const InstituteRegistration = ({ onRegistrationComplete }) => {
           >
             Verify OTP
           </button>
+          
+           <Link to="/institute-register1" className="text-blue-600 text-sm underline mt-4 hover:text-blue-800">
+           Register
+                    </Link>
+           
+          
         </div>
       </div>
     </div>
