@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import PropTypes from 'prop-types';
 
 const RedStar = () => (
   <span className="text-red-500 ml-1">*</span>
@@ -6,7 +7,7 @@ const RedStar = () => (
 
 const FormInput = ({ label, value, onChange, placeholder, type = "text", maxLength, className = "" }) => (
   <div className="space-y-2">
-    <label className="block font-cambria text-gray-700 text-sm font-medium">
+    <label className="block text-gray-700 text-sm font-medium">
       {label}
       <RedStar />
     </label>
@@ -22,96 +23,129 @@ const FormInput = ({ label, value, onChange, placeholder, type = "text", maxLeng
   </div>
 );
 
-const Private_orglogin = ({ onRegistrationComplete }) => {
+FormInput.propTypes = {
+  label: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  placeholder: PropTypes.string.isRequired,
+  type: PropTypes.string,
+  maxLength: PropTypes.string,
+  className: PropTypes.string
+};
+
+FormInput.defaultProps = {
+  type: "text",
+  maxLength: undefined,
+  className: ""
+};
+
+const InstituteLogin = ({ onRegistrationComplete }) => {
   const [formData, setFormData] = useState({
-    pan: '',
     tan: '',
     mobileNumber: '',
     userEnteredOtp: '',
-    otp: '',
   });
+  const [generatedOtp, setGeneratedOtp] = useState("");
+  const [isOtpSent, setIsOtpSent] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (field) => (e) => {
     setFormData(prev => ({ ...prev, [field]: e.target.value }));
   };
 
-  const handleGetOtp = async () => {
-    try {
-      const response = await fetch("http://localhost:4000/otp/send-otp", {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ mobileNumber: formData.mobileNumber })
-      });
-      const data = await response.json();
-      alert(data.message);
-      setFormData(prev => ({ ...prev, otp: data.otp }));
-    } catch (error) {
-      console.error("Error sending OTP:", error);
-      alert("Error sending OTP. Please try again later.");
+  const handleGetOtp = () => {
+    if (!formData.mobileNumber) {
+      setError("Please enter a mobile number");
+      return;
     }
+    
+    const newOtp = Math.floor(1000 + Math.random() * 9000).toString();
+    setGeneratedOtp(newOtp);
+    setIsOtpSent(true);
+    setError("");
+    alert(`Your OTP is: ${newOtp}`);
   };
 
   const handleVerifyOtp = () => {
-    if (formData.userEnteredOtp === formData.otp) {
+    if (formData.userEnteredOtp === generatedOtp) {
+      setError("");
       alert("OTP verified successfully!");
       if (onRegistrationComplete) {
         onRegistrationComplete();
       }
     } else {
-      alert("Invalid OTP. Please try again.");
+      setError("Invalid OTP. Please try again.");
     }
   };
-
-  const buttonStyle = "px-4 py-2 text-white rounded-lg hover:opacity-90 transition-opacity duration-200 border-2 border-blue-500 bg-blue-500";
-  const verifyButtonStyle = "px-8 py-3 text-white text-lg font-cambria rounded-full hover:opacity-90 transition-opacity duration-200 shadow-lg border-2 border-blue-500 bg-blue-500";
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       <header className="bg-blue-500 text-white py-6 px-8 rounded-lg mb-8">
-        <h1 className="text-2xl font-cambria font-bold text-center">
-         Private Organization Login
+        <h1 className="text-2xl font-bold text-center">
+          Institute Login
         </h1>
       </header>
 
       <div className="bg-white shadow-xl rounded-xl p-8 space-y-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="space-y-2">
-            <label className="block font-cambria text-gray-700 text-sm font-medium">
-              Enter TAN NO
+            <label className="block text-gray-700 text-sm font-medium">
+              Enter TAN Number
+              <RedStar />
+            </label>
+            <input
+              type="text"
+              value={formData.tan}
+              onChange={handleChange('tan')}
+              placeholder="Enter your TAN number"
+              className="w-full px-4 py-2 border-2 border-blue-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="block text-gray-700 text-sm font-medium">
+              Mobile Number
               <RedStar />
             </label>
             <div className="flex space-x-2">
               <input
-                type="text"
+                type="tel"
                 value={formData.mobileNumber}
-                onChange={handleChange('TAN No')}
+                onChange={handleChange('mobileNumber')}
                 placeholder="Enter your mobile number"
                 className="flex-1 px-4 py-2 border-2 border-blue-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
               <button
                 onClick={handleGetOtp}
-                className={buttonStyle}
+                className="px-4 py-2 text-white rounded-lg hover:opacity-90 transition-opacity duration-200 border-2 border-blue-500 bg-blue-500 disabled:opacity-50"
+                disabled={!formData.mobileNumber}
               >
                 Get OTP
               </button>
             </div>
           </div>
 
-          <FormInput
-            label="Enter OTP"
-            value={formData.userEnteredOtp}
-            onChange={handleChange('userEnteredOtp')}
-            placeholder="Enter the OTP"
-            maxLength="6"
-          />
+          {isOtpSent && (
+            <FormInput
+              label="Enter OTP"
+              value={formData.userEnteredOtp}
+              onChange={handleChange('userEnteredOtp')}
+              placeholder="Enter the 4-digit OTP"
+              type="number"
+              maxLength="4"
+            />
+          )}
         </div>
+
+        {error && (
+          <p className="text-red-500 text-center">{error}</p>
+        )}
 
         <div className="flex justify-center pt-6">
           <button
             onClick={handleVerifyOtp}
-            className={verifyButtonStyle}
+            className="px-8 py-3 text-white text-lg rounded-full hover:opacity-90 transition-opacity duration-200 shadow-lg border-2 border-blue-500 bg-blue-500 disabled:opacity-50"
+            disabled={!isOtpSent || !formData.userEnteredOtp}
           >
             Verify OTP
           </button>
@@ -121,4 +155,12 @@ const Private_orglogin = ({ onRegistrationComplete }) => {
   );
 };
 
-export default Private_orglogin;
+InstituteLogin.propTypes = {
+  onRegistrationComplete: PropTypes.func
+};
+
+InstituteLogin.defaultProps = {
+  onRegistrationComplete: undefined
+};
+
+export default InstituteLogin;
