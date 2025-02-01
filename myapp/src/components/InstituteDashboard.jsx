@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom'
+import InstitutionUpdateForm from './InstitutionUpdateForm';
 
 const ScholarshipCard = ({ 
   title, 
@@ -115,7 +116,7 @@ const InstituteDashboard = () => {
         {activeTab === 'profile' && (
           <div>
             <h2 className="text-2xl font-bold mb-6">Update Profile</h2>
-            <p className="text-gray-600">Profile update section coming soon...</p>
+            <p className="text-gray-600"><InstitutionUpdateForm /></p>
           </div>
         )}
 

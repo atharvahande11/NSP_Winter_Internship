@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom'; // Import Link for routing
 import Mainslider from './Mainslider.jsx';
 import '.././css/home.css';
+import InstitutionUpdateForm from './InstitutionUpdateForm.jsx';
 
 const Home = (props) => {
   return (

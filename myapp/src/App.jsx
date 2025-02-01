@@ -19,6 +19,8 @@ import InstituteRegistration1 from './components/InstituteRegistration1.jsx'
 import InstituteRegistration2 from './components/InstituteRegistration2.jsx'
 import PrivateScholarshipDashboard from './components/PvtScholarshipDashboard.jsx'
 import Private_orglogin from './components/Private_orglogin.jsx'
+import InstitutionUpdateForm from './components/InstitutionUpdateForm.jsx'
+import StudentProfileUpdate from './components/StudentUpdateProfile.jsx'
 
 function App() {
 
@@ -45,6 +47,9 @@ function App() {
           <Route path="/institute-register2" element={<InstituteRegistration2 />} />
           <Route path="/pvtorg-dashboard" element={<PrivateScholarshipDashboard />} />
           <Route path="/pvt-login" element={<Private_orglogin />} />
+          <Route path="/inst-update-profile" element={<InstitutionUpdateForm />} />
+          <Route path="/student-update-profile" element={<StudentProfileUpdate />} />
+          <Route path="/inst-update-form" element={<InstitutionUpdateForm />} />
         </Routes>
     <Footer />
     </>

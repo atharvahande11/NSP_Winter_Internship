@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
+import StudentProfileUpdate from './StudentUpdateProfile';
+
 
 const ScholarshipCard = ({ title, description }) => {
   ScholarshipCard.propTypes = {
@@ -76,8 +78,7 @@ const StudentDashboard = () => {
       <div className="flex-1 p-8">
         {activeTab === 'profile' && (
           <div>
-            <h2 className="text-2xl font-bold mb-6">Update Profile</h2>
-            <p className="text-gray-600">Profile update section coming soon...</p>
+            <StudentProfileUpdate />
           </div>
         )}
         {activeTab === 'scholarships' && (
