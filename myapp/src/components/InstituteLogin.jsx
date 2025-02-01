@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
+import "../css/instlogin.css";
 
 const RedStar = () => (
   <span className="text-red-500 ml-1">*</span>
@@ -160,7 +161,7 @@ const InstituteRegistration = ({ onRegistrationComplete }) => {
             Verify OTP
           </button>
           
-           <Link to="/institute-register1" className="text-blue-600 text-sm underline mt-4 hover:text-blue-800">
+           <Link to="/institute-register2" className="px-8 py-3 text-white text-lg rounded-full" id="register-button">
            Register
                     </Link>
            

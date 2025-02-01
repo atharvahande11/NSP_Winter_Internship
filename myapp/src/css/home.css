@@ -24,6 +24,38 @@
     margin: 10px; /* Add margin between the cards */
 }
 
+.hhome1 {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+  }
+  
+  .hcard1, .hcard2, .hcard3 {
+    width: 30%; /* Adjust the width of the cards */
+    cursor: pointer;
+    padding: 20px;
+    background-color: #f3f3f3;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .hcardLink {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    height: 100%;
+  }
+  
+  .card-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-size: 1.2rem;
+  }
+  
+
 /* Individual colors for each card */
 .hcard1 {
     background-color: #F7768D;

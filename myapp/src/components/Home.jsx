@@ -11,14 +11,24 @@ const Home = (props) => {
       <div className="hhome1">
         <div className="hcard1">
           <Link to="/student-login" className="hcardLink">
-            Students
+            <div className="card-content">
+              Students
+            </div>
           </Link>
         </div>
         <div className="hcard2">
-          <Link to="/institute-login" className="hcardLink">Institutions</Link>
+          <Link to="/institute-login" className="hcardLink">
+            <div className="card-content">
+              Institutions
+            </div>
+          </Link>
         </div>
         <div className="hcard3">
-          <Link to="/pvt-login" className="hcardLink">Private Organisation</Link>
+          <Link to="/pvt-login" className="hcardLink">
+            <div className="card-content">
+              Private Organisation
+            </div>
+          </Link>
         </div>
       </div>
     </>
