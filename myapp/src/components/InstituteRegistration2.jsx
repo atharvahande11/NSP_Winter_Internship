@@ -160,7 +160,7 @@ const InstituteRegistration2 = ({ onRegistrationComplete }) => {
     <div className="max-w-6xl mx-auto px-4 py-8 font-cambria">
       <header style={{ backgroundColor: '#E94FBB' }} className="text-white py-6 px-8 rounded-lg mb-8">
         <h1 className="text-2xl font-bold text-center">
-          Institute Application Form
+          Institute Registration Form
         </h1>
       </header>
 

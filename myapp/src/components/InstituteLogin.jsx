@@ -98,7 +98,7 @@ const InstituteRegistration = ({ onRegistrationComplete }) => {
     <div className="max-w-4xl mx-auto px-4 py-8">
       <header style={{ backgroundColor: '#E94FBB' }} className="text-white py-6 px-8 rounded-lg mb-8">
         <h1 className="text-2xl font-bold text-center">
-          Institute Registration
+          Institute Login
         </h1>
       </header>
 
