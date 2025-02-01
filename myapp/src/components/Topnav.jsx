@@ -5,18 +5,18 @@ import '.././css/navbar.css'
 const Topnav = () => {
   return (
     <>
-    <div className="topnav">
+      <div className="topnav">
         <div className="lefttopnav">
-            <p>Government of India | </p>
-            <p>Ministry of Electronics & Infromation Technology | </p>
-            <img src={tlogo} alt="digital india" />
+          <p>Government of India | </p>
+          <p>Ministry of Electronics & Information Technology | </p>
+          <img src={tlogo} alt="digital india" />
         </div>
         <div className="righttopnav">
-            <p>English</p>
+          <p>English</p>
         </div>
-    </div>
+      </div>
     </>
   )
 }
 
-export default Topnav
+export default Topnav;
