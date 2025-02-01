@@ -28,7 +28,7 @@ const StudentProfileUpdate = ({ initialData, onSubmit }) => {
 
   return (
     <div className="max-w-5xl mx-auto p-6 bg-white shadow-md rounded-lg border">
-      <h2 className="text-center text-xl font-semibold text-[#0D4F8B] mb-6 border-b pb-4">
+      <h2 className="text-center text-xl font-semibold text-white bg-[#F8788E] p-4 rounded-t-lg mb-6">
         Student Profile Update
       </h2>
       <form onSubmit={handleSubmit} className="space-y-6">
@@ -161,7 +161,7 @@ const StudentProfileUpdate = ({ initialData, onSubmit }) => {
 
           {/* Bank Details Section */}
           <div className="col-span-2 border-t pt-4">
-            <h3 className="text-[#0D4F8B] font-semibold text-lg mb-4">Bank Details</h3>
+            <h3 className="text-[#F8788E] font-semibold text-lg mb-4">Bank Details</h3>
           </div>
 
           <div>
@@ -207,7 +207,7 @@ const StudentProfileUpdate = ({ initialData, onSubmit }) => {
         <div className="flex justify-center mt-6">
           <button
             type="submit"
-            className="bg-[#0D4F8B] hover:bg-[#0D4F8B]/90 text-white px-8 py-2 rounded-lg shadow-md"
+            className="bg-[#F8788E] hover:bg-pink-600 text-white px-8 py-2 rounded-lg shadow-md"
           >
             Update
           </button>
