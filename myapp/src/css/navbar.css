@@ -28,7 +28,7 @@
     font-size: 0.8em
 }
 
-.topnav{
+/* .topnav{
     background-color: rgb(237 237 237);
     padding: 10px 15px;
     display: flex;
@@ -39,4 +39,31 @@
 
 .righttopnav p{
     font-size: 0.8em;
-}
+} */
+
+.topnav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: rgb(237 237 237);
+  }
+  
+  .lefttopnav {
+    display: flex;
+    align-items: center;
+  }
+  
+  .lefttopnav p {
+    margin: 0;
+    padding-right: 5px; /* Adjust spacing between text and logo */
+  }
+  
+  .lefttopnav img {
+    height: 20px; /* Adjust the size of the logo */
+  }
+  
+  .righttopnav p {
+    margin: 0;
+  }
+  
