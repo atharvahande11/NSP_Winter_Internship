@@ -122,7 +122,7 @@ const InstituteRegistration = ({ onRegistrationComplete }) => {
                 value={formData.mobileNumber}
                 onChange={handleChange('mobileNumber')}
                 placeholder="Enter your mobile number"
-                className="flex-1 px-4 py-2 border-2 border-pink-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                className="flex-1 px-4 py-2 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
               />
               <button
                 onClick={handleGetOtp}

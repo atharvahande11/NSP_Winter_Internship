@@ -102,7 +102,7 @@ const StudentLogin = () => {
               <input
                 type="text"
                 id="applicationId"
-                className="w-2/3 px-4 py-2 border-2 border-pink-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                className="w-2/3 px-4 py-2 border-2 rounded-lg focus:outline-none focus:ring-2 focus:border-transparent"
                 placeholder="Enter your application ID"
                 value={applicationId}
                 onChange={handleAppIdChange}
@@ -120,7 +120,7 @@ const StudentLogin = () => {
             <input
                 type="number"
                 id="otpid"
-                className="w-full px-4 py-2 border-2 border-pink-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                className="w-full px-4 py-2 border-2 rounded-lg focus:outline-none focus:ring-2 focus:border-transparent"
                 placeholder="Enter your OTP"
                 value={otp}
                 onChange={handleotpChange}
@@ -139,7 +139,7 @@ const StudentLogin = () => {
                   <input
                     key={index}
                     type="text"
-                    className="w-1/6 px-4 py-2 border-2 border-pink-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent text-center"
+                    className="w-1/6 px-4 py-2 border-2 rounded-lg focus:outline-none focus:ring-2  focus:border-transparent text-center"
                     maxLength="1"
                     value={digit}
                     onChange={(e) => handleUserEnteredOtpChange(e, index)}
