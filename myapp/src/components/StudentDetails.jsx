@@ -6,11 +6,18 @@ const StudentDetails = () => {
   const [formData, setFormData] = useState({
     name: "",
     bankAccount: "",
+    gender: "",
+    email: "",
     dob: "",
+    collegeName: "",
     panNumber: "",
+    branch: "",
     mobile: "",
     annualIncome: "",
     address: "",
+    currentYear: "",
+    bankName: "",
+    accountNumber: "",
   });
 
   const userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
@@ -81,6 +88,41 @@ const StudentDetails = () => {
                 />
               </div>
               <div>
+            <label className="font-medium text-gray-700" htmlFor="bankName">Bank Name</label>
+            <input
+              id="bankName"
+              name="bankName"
+              value={formData.bankName}
+              onChange={handleInputChange}
+              placeholder="Enter Bank Name"
+              required
+              className="w-full p-3 border border-gray-300 rounded-lg"
+            />
+          </div>
+          <div>
+            <label className="font-medium text-gray-700" htmlFor="accountNumber">Account Number</label>
+            <input
+              id="accountNumber"
+              name="accountNumber"
+              value={formData.accountNumber}
+              onChange={handleInputChange}
+              placeholder="Enter Account Number"
+              required
+              className="w-full p-3 border border-gray-300 rounded-lg"
+            />
+          </div>
+              <div>
+            <label className="font-medium text-gray-700">Gender</label>
+            <input
+              type="text"
+              value=  {formData.gender}
+              name="gender"
+              onChange={handleInputChange}
+              placeholder="Enter Gender"
+              className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+              <div>
                 <label className="block text-gray-700 mb-2">
                   Date of Birth <span className="text-red-500">*</span>
                 </label>
@@ -120,6 +162,55 @@ const StudentDetails = () => {
                   required
                 />
               </div>
+              <div>
+            <label className="font-medium text-gray-700" htmlFor="email">Email ID</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              placeholder="Enter Email ID"
+              required
+              className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <div>
+            <label className="font-medium text-gray-700" htmlFor="collegeName">College Name</label>
+            <input
+              id="collegeName"
+              name="collegeName"
+              value={formData.collegeName}
+              onChange={handleInputChange}
+              placeholder="Enter College Name"
+              required
+              className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <div>
+            <label className="font-medium text-gray-700" htmlFor="branch">Branch</label>
+            <input
+              id="branch"
+              name="branch"
+              value={formData.branch}
+              onChange={handleInputChange}
+              placeholder="Enter Branch"
+              required
+              className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <div>
+            <label className="font-medium text-gray-700" htmlFor="currentYear">Current Year of Study</label>
+            <input
+              id="currentYear"
+              name="currentYear"
+              value={formData.currentYear} 
+              onChange={handleInputChange}
+              placeholder="Enter Current Year"
+              required
+              className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
               <div>
                 <label className="block text-gray-700 mb-2">
                   Annual Income <span className="text-red-500">*</span>
