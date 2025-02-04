@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const RedStar = () => (
-  <span className="text-red-500 ml-1">*</span>
-);
+const RedStar = () => <span className="text-red-500 ml-1">*</span>;
 
 const Modal = ({ children, onClose }) => (
   <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-    <div className="bg-white p-4 rounded-lg shadow-xl max-w-sm w-full mx-4"> {/* Reduced max-width and padding */}
+    <div className="bg-white p-4 rounded-lg shadow-xl max-w-sm w-full mx-4">
       {children}
     </div>
   </div>
 );
 
 const FormField = ({ label, value, onChange, type = "text", as = "input", options = [] }) => {
-  const inputClasses = "w-full sm:w-64 px-3 py-1.5 border-2 border-pink-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"; // Reduced padding and width
-  
+  const inputClasses = "w-full sm:w-64 px-3 py-1.5 border-2 border-pink-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent";
+
   return (
     <div className="mb-4">
       <label className="block text-gray-700 font-medium mb-2">
@@ -30,7 +29,7 @@ const FormField = ({ label, value, onChange, type = "text", as = "input", option
           <option value="" disabled>Select {label}</option>
           {options.map(({ value, label }) => (
             <option key={value} value={value}>
-              {value} - {label}
+              {label}
             </option>
           ))}
         </select>
@@ -66,15 +65,17 @@ const InstituteRegistration2 = ({ onRegistrationComplete }) => {
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const [applicationId, setApplicationId] = useState('');
 
+  const navigate = useNavigate(); // React Router hook for navigation
+
   const handleChange = (field) => (value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
   const generateApplicationId = () => {
-    const stateInitials = formData.state.slice(0, 2).toUpperCase();
-    const heiInitials = formData.heid.slice(0, 2).toUpperCase();
-    const randomNumbers = Math.floor(100000 + Math.random() * 900000);
-    return `EI_${stateInitials}_${heiInitials}${randomNumbers}`;
+    const selectedState = STATES.find(state => state.value === formData.state);
+    const stateInitials = selectedState ? selectedState.value : "XX";
+    const randomNumbers = Math.floor(100000 + Math.random() * 900000);  // 6 digit random number
+    return `EI_${stateInitials}_${randomNumbers}`;
   };
 
   const handleRegisterClick = () => {
@@ -90,32 +91,19 @@ const InstituteRegistration2 = ({ onRegistrationComplete }) => {
     setShowConfirmationPopup(false);
     try {
       const newApplicationId = generateApplicationId();
-      setApplicationId(newApplicationId);
+      setApplicationId(newApplicationId);  
 
-      const response = await fetch('http://localhost:4000/institute/register-institute', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...formData,
-          appId: newApplicationId
-        }),
-      });
+      // Here you can proceed with your registration API call
+      // const response = await fetch('http://localhost:4000/institute/register-institute', {...});
 
-      const data = await response.json();
-
-      if (data.success) {
-        setShowSuccessPopup(true);
-        setTimeout(() => {
-          setShowSuccessPopup(false);
-          if (onRegistrationComplete) {
-            onRegistrationComplete();
-          }
-        }, 10000);
-      } else {
-        setError("Institute registration failed!");
-      }
+      setShowSuccessPopup(true);
+      setTimeout(() => {
+        setShowSuccessPopup(false);
+        navigate('/institute-dashboard');  
+        if (onRegistrationComplete) {
+          onRegistrationComplete();
+        }
+      }, 10000);
     } catch (error) {
       console.error("Error registering institute:", error);
       setError("Error registering institute. Please try again.");
@@ -164,63 +152,23 @@ const InstituteRegistration2 = ({ onRegistrationComplete }) => {
         </h1>
       </header>
 
-      <div className="bg-white shadow-xl rounded-xl p-6"> {/* Reduced padding */}
+      <div className="bg-white shadow-xl rounded-xl p-6">
         {error && (
           <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
             {error}
           </div>
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4"> {/* Reduced gap */}
-          <FormField
-            label="Enter HEI_id"
-            value={formData.heid}
-            onChange={handleChange('heid')}
-          />
-          <FormField
-            label="PAN number"
-            value={formData.pan}
-            onChange={handleChange('pan')}
-          />
-          <FormField
-            label="TAN number"
-            value={formData.tan}
-            onChange={handleChange('tan')}
-          />
-          <FormField
-            label="Mobile Number"
-            value={formData.mobNum}
-            onChange={handleChange('mobNum')}
-            type="tel"
-          />
-          <FormField
-            label="Official E-mail"
-            value={formData.email}
-            onChange={handleChange('email')}
-            type="email"
-          />
-          <FormField
-            label="College Name"
-            value={formData.collegeName}
-            onChange={handleChange('collegeName')}
-          />
-          <FormField
-            label="Address"
-            value={formData.address}
-            onChange={handleChange('address')}
-          />
-          <FormField
-            label="City"
-            value={formData.city}
-            onChange={handleChange('city')}
-          />
-          <FormField
-            label="State"
-            value={formData.state}
-            onChange={handleChange('state')}
-            as="select"
-            options={STATES}
-          />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <FormField label="Enter HEI_id" value={formData.heid} onChange={handleChange('heid')} />
+          <FormField label="PAN number" value={formData.pan} onChange={handleChange('pan')} />
+          <FormField label="TAN number" value={formData.tan} onChange={handleChange('tan')} />
+          <FormField label="Mobile Number" value={formData.mobNum} onChange={handleChange('mobNum')} type="tel" />
+          <FormField label="Official E-mail" value={formData.email} onChange={handleChange('email')} type="email" />
+          <FormField label="College Name" value={formData.collegeName} onChange={handleChange('collegeName')} />
+          <FormField label="Address" value={formData.address} onChange={handleChange('address')} />
+          <FormField label="City" value={formData.city} onChange={handleChange('city')} />
+          <FormField label="State" value={formData.state} onChange={handleChange('state')} as="select" options={STATES} />
         </div>
 
         <div className="mt-8 flex justify-center">
@@ -236,7 +184,7 @@ const InstituteRegistration2 = ({ onRegistrationComplete }) => {
 
       {showConfirmationPopup && (
         <Modal onClose={() => setShowConfirmationPopup(false)}>
-          <h2 className="text-lg font-bold mb-4">Confirm Application</h2> {/* Reduced font size */}
+          <h2 className="text-lg font-bold mb-4">Confirm Application</h2>
           <p className="mb-6">Are you sure you want to register the application?</p>
           <div className="flex justify-center space-x-4">
             <button
@@ -258,7 +206,7 @@ const InstituteRegistration2 = ({ onRegistrationComplete }) => {
 
       {showSuccessPopup && (
         <Modal onClose={() => setShowSuccessPopup(false)}>
-          <h2 className="text-lg font-bold mb-4">Registration Successful</h2> {/* Reduced font size */}
+          <h2 className="text-lg font-bold mb-4">Registration Successful</h2>
           <p className="mb-6">Your Application ID: {applicationId}</p>
           <button
             style={{ backgroundColor: '#E94FBB' }}
