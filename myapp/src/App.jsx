@@ -20,6 +20,7 @@ import Private_orglogin from './components/Private_orglogin.jsx'
 import InstitutionUpdateForm from './components/InstitutionUpdateForm.jsx'
 import StudentProfileUpdate from './components/StudentUpdateProfile.jsx'
 import PvtAddScholarship from './components/PvtAddScholarship.jsx'
+import ScholarshipRegister from './components/ScholarshipRegisterForm.jsx'
 
 function App() {
 
@@ -50,6 +51,9 @@ function App() {
           <Route path="/student-update-profile" element={<StudentProfileUpdate />} />
           <Route path="/inst-update-form" element={<InstitutionUpdateForm />} />
           <Route path="/pvt-add-scholarship" element={<PvtAddScholarship/>} />
+          <Route path="/scholarship-register" element={<ScholarshipRegister/>} />
+
+
         </Routes>
     <Footer />
     </>

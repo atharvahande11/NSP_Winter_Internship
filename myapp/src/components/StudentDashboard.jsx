@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import StudentProfileUpdate from './StudentUpdateProfile';
 
-
 const ScholarshipCard = ({ title, description }) => {
+  const navigate = useNavigate();
+
   ScholarshipCard.propTypes = {
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
@@ -19,8 +20,9 @@ const ScholarshipCard = ({ title, description }) => {
       <div className="flex items-center justify-between">
         <button 
           className="bg-[#F8788E] hover:bg-[#e0677f] text-white px-4 py-2 rounded-lg"
+          onClick={() => navigate('/scholarship-register')}
         >
-          Register
+          Register 
         </button>
       </div>
     </div>
@@ -29,11 +31,11 @@ const ScholarshipCard = ({ title, description }) => {
 
 const StudentDashboard = () => {
   const [activeTab, setActiveTab] = useState('scholarships');
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   const handleLogout = async (e) => {
     e.preventDefault();
-    history("/home");
+    navigate("/home");
   };
 
   const scholarships = [
