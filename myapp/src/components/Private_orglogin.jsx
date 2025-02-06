@@ -18,7 +18,7 @@ const FormInput = ({ label, value, onChange, placeholder, type = "text", maxLeng
       placeholder={placeholder}
       maxLength={maxLength}
       required
-      className={`w-full px-4 py-2 border-2 border-blue-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${className}`}
+      className={`w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-gray-600 focus:outline-none focus:ring-0 ${className}`}
     />
   </div>
 );
@@ -80,7 +80,7 @@ const InstituteLogin = ({ onRegistrationComplete }) => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
-      <header className="bg-blue-500 text-white py-6 px-8 rounded-lg mb-8">
+      <header className="bg-[#36aac9] text-white py-6 px-8 rounded-lg mb-8">
         <h1 className="text-2xl font-bold text-center">
           Private Organisation Login
         </h1>
@@ -98,7 +98,7 @@ const InstituteLogin = ({ onRegistrationComplete }) => {
               value={formData.tan}
               onChange={handleChange('tan')}
               placeholder="Enter your TAN number"
-              className="w-full px-4 py-2 border-2 border-blue-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-gray-600 focus:outline-none focus:ring-0"
             />
           </div>
 
@@ -113,11 +113,11 @@ const InstituteLogin = ({ onRegistrationComplete }) => {
                 value={formData.mobileNumber}
                 onChange={handleChange('mobileNumber')}
                 placeholder="Enter your mobile number"
-                className="flex-1 px-4 py-2 border-2 border-blue-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="flex-1 px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-gray-600 focus:outline-none focus:ring-0"
               />
               <button
                 onClick={handleGetOtp}
-                className="px-4 py-2 text-white rounded-lg hover:opacity-90 transition-opacity duration-200 border-2 border-blue-500 bg-blue-500 disabled:opacity-50"
+                className="px-4 py-2 text-white rounded-lg hover:opacity-90 transition-opacity duration-200 border-2 border-[#36aac9] bg-[#36aac9] disabled:opacity-50"
                 disabled={!formData.mobileNumber}
               >
                 Get OTP
@@ -144,7 +144,7 @@ const InstituteLogin = ({ onRegistrationComplete }) => {
         <div className="flex justify-center pt-6">
           <button
             onClick={handleVerifyOtp}
-            className="px-8 py-3 text-white text-lg rounded-full hover:opacity-90 transition-opacity duration-200 shadow-lg border-2 border-blue-500 bg-blue-500 disabled:opacity-50"
+            className="px-8 py-3 text-white text-lg rounded-full hover:opacity-90 transition-opacity duration-200 shadow-lg border-2 border-[#36aac9] bg-[#36aac9] disabled:opacity-50"
             disabled={!isOtpSent || !formData.userEnteredOtp}
           >
             Verify OTP

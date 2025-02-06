@@ -89,7 +89,7 @@ const StudentLogin = () => {
   return (
     <div className="min-h-[80vh] flex items-start justify-center bg-gray-100 px-4 pt-10">
       <div className="bg-white shadow-xl rounded-xl p-8 w-full max-w-md">
-        <header style={{ backgroundColor: '#E94FBB' }} className="text-white py-4 px-6 rounded-lg mb-6 text-center">
+        <header style={{ backgroundColor: '#F7768D' }} className="text-white py-4 px-6 rounded-lg mb-6 text-center">
           <h2 className="text-2xl font-cambria font-bold">Student Login</h2>
         </header>
 
@@ -102,7 +102,7 @@ const StudentLogin = () => {
               <input
                 type="text"
                 id="applicationId"
-                className="w-2/3 px-4 py-2 border-2 rounded-lg focus:outline-none focus:ring-2 focus:border-transparent"
+                className="w-2/3 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-600 focus:border-gray-600"
                 placeholder="Enter your application ID"
                 value={applicationId}
                 onChange={handleAppIdChange}
@@ -110,7 +110,7 @@ const StudentLogin = () => {
               />
               <button
                 type="button"
-                className="w-1/3 ml-2 bg-pink-500 text-white px-4 py-2 rounded-lg"
+                className="w-1/3 ml-2 bg-[#F7768D] text-white px-4 py-2 rounded-lg"
                 onClick={handleGetOtp}
               >
                 Get OTP
@@ -120,7 +120,7 @@ const StudentLogin = () => {
             <input
                 type="number"
                 id="otpid"
-                className="w-full px-4 py-2 border-2 rounded-lg focus:outline-none focus:ring-2 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-600 focus:border-gray-600"
                 placeholder="Enter your OTP"
                 value={otp}
                 onChange={handleotpChange}
@@ -139,7 +139,7 @@ const StudentLogin = () => {
                   <input
                     key={index}
                     type="text"
-                    className="w-1/6 px-4 py-2 border-2 rounded-lg focus:outline-none focus:ring-2  focus:border-transparent text-center"
+                    className="w-1/6 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-600 focus:border-gray-600 text-center"
                     maxLength="1"
                     value={digit}
                     onChange={(e) => handleUserEnteredOtpChange(e, index)}
@@ -153,7 +153,7 @@ const StudentLogin = () => {
           <div className="mt-4 text-center">
             <button
               type="button"
-              style={{ backgroundColor: '#E94FBB' }}
+              style={{ backgroundColor: '#F7768D' }}
               className={`w-full px-4 py-2 text-white text-lg font-cambria rounded-full hover:opacity-90 transition-opacity duration-200 shadow-lg ${loading ? 'cursor-not-allowed opacity-70' : ''}`}
               onClick={handleVerify}
               disabled={loading}
@@ -164,7 +164,7 @@ const StudentLogin = () => {
         </form>
 
         <div className="mt-4 text-center text-gray-600">
-          <Link to="/student-signup" className="text-pink-500 hover:underline">Sign up</Link>
+          <Link to="/student-signup" className="text-pink-500 hover:underline">Register</Link>
         </div>
       </div>
     </div>

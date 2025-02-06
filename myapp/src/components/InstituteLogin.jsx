@@ -20,26 +20,10 @@ const FormInput = ({ label, value, onChange, placeholder, type = "text", maxLeng
       placeholder={placeholder}
       maxLength={maxLength}
       required
-      className={`w-full px-4 py-2 border-2 border-pink-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent ${className}`}
+      className={`w-full h-10 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-600 focus:border-gray-600 ${className}`}
     />
   </div>
 );
-
-FormInput.propTypes = {
-  label: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  placeholder: PropTypes.string.isRequired,
-  type: PropTypes.string,
-  maxLength: PropTypes.string,
-  className: PropTypes.string
-};
-
-FormInput.defaultProps = {
-  type: "text",
-  maxLength: undefined,
-  className: ""
-};
 
 const InstituteRegistration = ({ onRegistrationComplete }) => {
   const [formData, setFormData] = useState({
@@ -67,7 +51,6 @@ const InstituteRegistration = ({ onRegistrationComplete }) => {
     
     // Simulate API delay
     setTimeout(() => {
-      // Generate a 4-digit OTP
       const newOtp = Math.floor(1000 + Math.random() * 9000).toString();
       setGeneratedOtp(newOtp);
       setIsOtpSent(true);
@@ -122,13 +105,13 @@ const InstituteRegistration = ({ onRegistrationComplete }) => {
                 value={formData.mobileNumber}
                 onChange={handleChange('mobileNumber')}
                 placeholder="Enter your mobile number"
-                className="flex-1 px-4 py-2 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                className="w-full h-10 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-600 focus:border-gray-600"
               />
               <button
                 onClick={handleGetOtp}
                 disabled={loading || !formData.mobileNumber}
                 style={{ backgroundColor: '#E94FBB' }}
-                className="px-4 py-2 text-white rounded-lg hover:opacity-90 transition-opacity duration-200 disabled:opacity-50"
+                className="h-10 px-4 text-white rounded-lg flex items-center justify-center text-sm font-medium whitespace-nowrap hover:opacity-90 transition-opacity duration-200 disabled:opacity-50"
               >
                 {loading ? 'Sending...' : 'Get OTP'}
               </button>
@@ -151,7 +134,7 @@ const InstituteRegistration = ({ onRegistrationComplete }) => {
           <p className="text-red-500 text-center mt-4">{error}</p>
         )}
 
-        <div className="flex justify-center pt-6">
+        <div className="flex justify-center pt-6 space-x-4">
           <button
             onClick={handleVerifyOtp}
             disabled={!isOtpSent || !formData.userEnteredOtp || loading}
@@ -161,11 +144,9 @@ const InstituteRegistration = ({ onRegistrationComplete }) => {
             Verify OTP
           </button>
           
-           <Link to="/institute-register2" className="px-8 py-3 text-white text-lg rounded-full" id="register-button">
-           Register
-                    </Link>
-           
-          
+          <Link to="/institute-register2" className="px-8 py-3 text-white text-lg rounded-full bg-[#E94FBB] hover:bg-gray-700 transition">
+            Register
+          </Link>
         </div>
       </div>
     </div>
@@ -174,10 +155,6 @@ const InstituteRegistration = ({ onRegistrationComplete }) => {
 
 InstituteRegistration.propTypes = {
   onRegistrationComplete: PropTypes.func
-};
-
-InstituteRegistration.defaultProps = {
-  onRegistrationComplete: undefined
 };
 
 export default InstituteRegistration;

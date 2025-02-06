@@ -12,7 +12,13 @@ const Modal = ({ children, onClose }) => (
 );
 
 const FormField = ({ label, value, onChange, type = "text", as = "input", options = [] }) => {
-  const inputClasses = "w-full sm:w-64 px-3 py-1.5 border-2 border-pink-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent";
+  const [isFocused, setIsFocused] = useState(false);
+
+  const inputClasses = `w-2/3 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-600 focus:border-gray-600 w-full sm:w-64 ${
+    isFocused 
+      ? 'border-2 border-gray-600 bg-gray-50' 
+      : 'border-2 border-gray-300 hover:border-gray-400 bg-white'
+  }`;
 
   return (
     <div className="mb-4">
@@ -24,6 +30,8 @@ const FormField = ({ label, value, onChange, type = "text", as = "input", option
           value={value}
           onChange={(e) => onChange(e.target.value)}
           className={inputClasses}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
           required
         >
           <option value="" disabled>Select {label}</option>
@@ -40,6 +48,8 @@ const FormField = ({ label, value, onChange, type = "text", as = "input", option
           onChange={(e) => onChange(e.target.value)}
           placeholder={`Enter ${label}`}
           className={inputClasses}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
           required
         />
       )}
@@ -65,7 +75,7 @@ const InstituteRegistration2 = ({ onRegistrationComplete }) => {
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const [applicationId, setApplicationId] = useState('');
 
-  const navigate = useNavigate(); // React Router hook for navigation
+  const navigate = useNavigate();
 
   const handleChange = (field) => (value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -74,7 +84,7 @@ const InstituteRegistration2 = ({ onRegistrationComplete }) => {
   const generateApplicationId = () => {
     const selectedState = STATES.find(state => state.value === formData.state);
     const stateInitials = selectedState ? selectedState.value : "XX";
-    const randomNumbers = Math.floor(100000 + Math.random() * 900000);  // 6 digit random number
+    const randomNumbers = Math.floor(100000 + Math.random() * 900000);
     return `EI_${stateInitials}_${randomNumbers}`;
   };
 
@@ -92,9 +102,6 @@ const InstituteRegistration2 = ({ onRegistrationComplete }) => {
     try {
       const newApplicationId = generateApplicationId();
       setApplicationId(newApplicationId);  
-
-      // Here you can proceed with your registration API call
-      // const response = await fetch('http://localhost:4000/institute/register-institute', {...});
 
       setShowSuccessPopup(true);
       setTimeout(() => {

@@ -69,7 +69,7 @@ export const StudentSignup = () => {
               id="fullName"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
-              className="w-full px-4 py-2 border-2 rounded-lg focus:outline-none focus:ring-2  focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-600 focus:border-gray-600"
               placeholder="Enter your full name"
               required
             />
@@ -82,7 +82,7 @@ export const StudentSignup = () => {
               id="aadhaar"
               value={aadhaar}
               onChange={(e) => setAadhaar(e.target.value.replace(/\D/g, "").slice(0, 12))}
-              className="w-full px-4 py-2 border-2 rounded-lg focus:outline-none focus:ring-2  focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-600 focus:border-gray-600"
               placeholder="Enter 12-digit Aadhaar number"
               required
             />
@@ -106,7 +106,7 @@ export const StudentSignup = () => {
                 id="otp"
                 value={otp}
                 onChange={(e) => setOtp(e.target.value.replace(/\D/g, "").slice(0, 4))}
-                className="w-full px-4 py-2 border-2 rounded-lg focus:outline-none focus:ring-2  focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-600 focus:border-gray-600"
                 placeholder="Enter 4-digit OTP"
                 required
               />
